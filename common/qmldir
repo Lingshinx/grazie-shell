@@ -1,0 +1,7 @@
+module Common
+
+singleton ThemeManager ThemeManager.qml
+ShellText ShellText.qml
+ShellIcon ShellIcon.qml
+OpacityHover OpacityHover.qml
+Utils Utils.js
