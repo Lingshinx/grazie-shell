@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
-import qs.Common as Common
+import qs.Common
 
 Item {
     id: root
@@ -11,7 +11,7 @@ Item {
     visible: items.length > 0
 
     implicitWidth: visible ? trayRow.implicitWidth : 0
-    implicitHeight: Common.ThemeManager.barHeight
+    implicitHeight: ThemeManager.barHeight
 
     Row {
         id: trayRow
@@ -34,7 +34,7 @@ Item {
                     anchors.fill: parent
                     source: trayItemDelegate.modelData.icon
                     asynchronous: true
-                    opacity: trayMouseArea.containsMouse ? 1.0 : Common.ThemeManager.opacity
+                    opacity: trayMouseArea.containsMouse ? 1.0 : ThemeManager.opacity
 
                     Behavior on opacity {
                         NumberAnimation { duration: 200 }

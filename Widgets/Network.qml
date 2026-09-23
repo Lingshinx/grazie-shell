@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Common as Common
+import qs.Common
 
 Item {
     id: root
@@ -11,7 +11,7 @@ Item {
     property int signalStrength: 0
 
     implicitWidth: networkBox.width
-    implicitHeight: Common.ThemeManager.barHeight
+    implicitHeight: ThemeManager.barHeight
 
     function getDisplayText() {
         if (root.connectionType === "wifi") {
@@ -28,16 +28,16 @@ Item {
         width: networkText.implicitWidth + 20
         height: parent.height
         radius: height / 2
-        color: Common.ThemeManager.background
-        opacity: Common.ThemeManager.opacity
+        color: ThemeManager.background
+        opacity: ThemeManager.opacity
 
         Text {
             id: networkText
             anchors.centerIn: parent
             text: root.getDisplayText()
             font.family: "FiraCode Nerd Font Propo, FontAwesome, sans-serif"
-            font.pixelSize: Common.ThemeManager.fontSize
-            color: Common.ThemeManager.network
+            font.pixelSize: ThemeManager.fontSize
+            color: ThemeManager.network
         }
 
         MouseArea {
@@ -48,7 +48,7 @@ Item {
             onClicked: nmAppletProc.running = true
 
             onEntered: networkBox.opacity = 1.0
-            onExited: networkBox.opacity = Common.ThemeManager.opacity
+            onExited: networkBox.opacity = ThemeManager.opacity
         }
 
         Behavior on opacity {

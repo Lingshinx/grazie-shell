@@ -1,6 +1,6 @@
 import QtQuick
 import qs.Common
-import qs.Services as Services
+import qs.Services
 
 Rectangle {
     id: root
@@ -31,6 +31,6 @@ Rectangle {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         cursorShape: Qt.PointingHandCursor
-        onClicked: mouse => Services.NiriService.action("ToggleOverview");
+        onClicked: mouse => NiriService.action("ToggleOverview");
     }
 }

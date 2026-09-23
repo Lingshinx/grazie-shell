@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.Common
-import qs.Services as Services
+import qs.Services
 
 Rectangle {
     implicitHeight: exitText.implicitHeight
@@ -25,7 +25,7 @@ Rectangle {
                 if (mouse.button === Qt.LeftButton) {
                     wlogoutProc.running = !wlogoutProc.running;
                 } else if (mouse.button === Qt.RightButton) {
-                    Services.NiriService.action("closeOverview");
+                    NiriService.action("closeOverview");
                 }
             }
 

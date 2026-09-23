@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Common as Common
+import qs.Common
 
 Item {
     id: root
@@ -21,14 +21,14 @@ Item {
     }
 
     implicitWidth: hardwareBox.width
-    implicitHeight: Common.ThemeManager.barHeight
+    implicitHeight: ThemeManager.barHeight
 
     Rectangle {
         id: hardwareBox
         height: parent.height
         radius: height / 2
-        color: Common.ThemeManager.background
-        opacity: Common.ThemeManager.opacity
+        color: ThemeManager.background
+        opacity: ThemeManager.opacity
         clip: true
 
         width: handleIconBox.width + (root.isExpanded ? drawerContent.width + 10 : 0)
@@ -45,7 +45,7 @@ Item {
             Item {
                 id: handleIconBox
                 width: 32
-                height: Common.ThemeManager.barHeight
+                height: ThemeManager.barHeight
 
                 Text {
                     anchors.centerIn: parent
@@ -53,13 +53,13 @@ Item {
                     font.family: "FiraCode Nerd Font Propo, FontAwesome, sans-serif"
                     font.pixelSize: 18
                     font.bold: true
-                    color: Common.ThemeManager.iconColor
+                    color: ThemeManager.iconColor
                 }
             }
 
             Item {
                 id: drawerContent
-                height: Common.ThemeManager.barHeight
+                height: ThemeManager.barHeight
                 width: root.isExpanded ? childrenRow.implicitWidth : 0
                 opacity: root.isExpanded ? 1.0 : 0.0
                 clip: true
@@ -79,30 +79,30 @@ Item {
 
                     Text {
                         text: " " + root.diskUsage + "%"
-                        font.family: Common.ThemeManager.fontFamily
-                        font.pixelSize: Common.ThemeManager.fontSize
-                        color: Common.ThemeManager.iconColor
+                        font.family: ThemeManager.fontFamily
+                        font.pixelSize: ThemeManager.fontSize
+                        color: ThemeManager.iconColor
                     }
 
                     Text {
                         text: " " + root.cpuUsage + "%"
-                        font.family: Common.ThemeManager.fontFamily
-                        font.pixelSize: Common.ThemeManager.fontSize
-                        color: Common.ThemeManager.iconColor
+                        font.family: ThemeManager.fontFamily
+                        font.pixelSize: ThemeManager.fontSize
+                        color: ThemeManager.iconColor
                     }
 
                     Text {
                         text: "M " + root.memoryUsed.toFixed(2) + "G"
-                        font.family: Common.ThemeManager.fontFamily
-                        font.pixelSize: Common.ThemeManager.fontSize
-                        color: Common.ThemeManager.iconColor
+                        font.family: ThemeManager.fontFamily
+                        font.pixelSize: ThemeManager.fontSize
+                        color: ThemeManager.iconColor
                     }
 
                     Text {
                         text: root.getTempIcon() + " " + root.temperature + "°C"
-                        font.family: Common.ThemeManager.fontFamily
-                        font.pixelSize: Common.ThemeManager.fontSize
-                        color: root.temperature >= 80 ? Common.ThemeManager.error : Common.ThemeManager.iconColor
+                        font.family: ThemeManager.fontFamily
+                        font.pixelSize: ThemeManager.fontSize
+                        color: root.temperature >= 80 ? ThemeManager.error : ThemeManager.iconColor
                     }
                 }
             }
@@ -120,7 +120,7 @@ Item {
 
             onExited: {
                 root.isExpanded = false;
-                hardwareBox.opacity = Common.ThemeManager.opacity;
+                hardwareBox.opacity = ThemeManager.opacity;
             }
 
             onClicked: root.isExpanded = !root.isExpanded

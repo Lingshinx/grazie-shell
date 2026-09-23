@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell
-import qs.Widgets as Widgets
+import qs.Widgets
 
 Variants {
     property var enabledMonitors: ["DP-2"]
@@ -37,12 +37,12 @@ Variants {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 16
 
-            Widgets.ArchLogo {}
-            Widgets.Wallpaper {}
-            Widgets.WindowTitle {}
+            ArchLogo {}
+            Wallpaper {}
+            WindowTitle {}
         }
 
-        Widgets.Workspaces {
+        Workspaces {
             id: centerWidget
             screenName: bar.screen.name
             anchors.centerIn: parent
@@ -54,14 +54,14 @@ Variants {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 16
 
-            Widgets.Updates {}
-            Widgets.Audio {}
-            Widgets.Battery {}
-            Widgets.Network {}
-            Widgets.Hardware {}
-            Widgets.Tray {}
-            Widgets.ExitButton {}
-            Widgets.Clock {}
+            Updates {}
+            Audio {}
+            Battery {}
+            Network {}
+            Hardware {}
+            Tray {}
+            ExitButton {}
+            Clock {}
         }
     }
 }

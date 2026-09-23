@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Services.UPower
-import qs.Common as Common
+import qs.Common
 
 Item {
     id: root
@@ -16,7 +16,7 @@ Item {
 
     visible: hasBattery
     implicitWidth: visible ? batteryBox.width : 0
-    implicitHeight: Common.ThemeManager.barHeight
+    implicitHeight: ThemeManager.barHeight
 
     function getBatteryIcon() {
         if (root.isCharging) return "";
@@ -33,8 +33,8 @@ Item {
         width: batteryRow.implicitWidth + 20
         height: parent.height
         radius: height / 2
-        color: (root.isCritical && blinkTimer.blinkState) ? Common.ThemeManager.warning : Common.ThemeManager.background
-        opacity: Common.ThemeManager.opacity
+        color: (root.isCritical && blinkTimer.blinkState) ? ThemeManager.warning : ThemeManager.background
+        opacity: ThemeManager.opacity
 
         Row {
             id: batteryRow
@@ -44,15 +44,15 @@ Item {
             Text {
                 text: root.getBatteryIcon()
                 font.family: "FiraCode Nerd Font Propo, FontAwesome, sans-serif"
-                font.pixelSize: Common.ThemeManager.fontSize
-                color: Common.ThemeManager.text
+                font.pixelSize: ThemeManager.fontSize
+                color: ThemeManager.text
             }
 
             Text {
                 text: root.capacity + "%"
-                font.family: Common.ThemeManager.fontFamily
-                font.pixelSize: Common.ThemeManager.fontSize
-                color: Common.ThemeManager.text
+                font.family: ThemeManager.fontFamily
+                font.pixelSize: ThemeManager.fontSize
+                color: ThemeManager.text
             }
         }
 
@@ -60,7 +60,7 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             onEntered: batteryBox.opacity = 1.0
-            onExited: batteryBox.opacity = Common.ThemeManager.opacity
+            onExited: batteryBox.opacity = ThemeManager.opacity
         }
 
         Behavior on opacity {
