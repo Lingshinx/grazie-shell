@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell
-import "../Widgets" as Widgets
+import qs.Widgets as Widgets
 
 Variants {
     property var enabledMonitors: ["DP-2"]

@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "../common" as Common
+import qs.Common as Common
 
 Item {
     id: root

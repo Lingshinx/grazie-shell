@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Services.UPower
-import "../Common" as Common
+import qs.Common as Common
 
 Item {
     id: root

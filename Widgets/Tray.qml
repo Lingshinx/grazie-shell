@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
-import "../Common" as Common
+import qs.Common as Common
 
 Item {
     id: root

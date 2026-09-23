@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Io
-import "../Common"
+import qs.Common
 
 Rectangle {
     id: root
