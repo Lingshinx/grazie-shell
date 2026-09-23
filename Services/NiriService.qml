@@ -90,7 +90,7 @@ Singleton {
         WindowOpenedOrChanged(data) {
             const win = data.window
             const idx = windows.findIndex(w => w.id === win.id)
-            let updated = windows.slice()
+            let updated = windows.map(w => Object.assign({}, w, { is_focused: false }))
             if (idx >= 0) updated[idx] = win; else updated.push(win)
             windows = updated
         },
