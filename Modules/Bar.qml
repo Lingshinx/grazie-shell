@@ -58,7 +58,6 @@ Variants {
             Audio {}
             Battery {}
             Network {}
-            Hardware {}
             Tray {}
             ExitButton {}
             Clock {}
