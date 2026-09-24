@@ -2,18 +2,14 @@ import QtQuick
 import qs.Common
 import qs.Services
 
-Rectangle {
+BarWidget {
     id: root
 
     implicitWidth: archLabel.implicitWidth + 25
     implicitHeight: ThemeManager.barHeight + 4
-    radius: height / 2
     color: ThemeManager.backgroundStress
     border.color: ThemeManager.border
     border.width: ThemeManager.borderWidth
-    opacity: opacity.value
-
-    OpacityHover { id: opacity }
 
     ShellText {
         id: archLabel
@@ -22,15 +18,6 @@ Rectangle {
         color: ThemeManager.textlight
     }
 
-    Behavior on opacity {
-        NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-        cursorShape: Qt.PointingHandCursor
-        onClicked: mouse => NiriService.action("ToggleOverview");
-    }
+    onTapped: NiriService.action("ToggleOverview")
+    rightClickable: false
 }

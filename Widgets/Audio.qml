@@ -20,16 +20,12 @@ Item {
     Component {
         id: realAudioWidget
 
-        Rectangle {
+        BarWidget {
             id: audio
             readonly property bool isMuted: AudioService.isMuted
 
-            implicitHeight: ThemeManager.barHeight
             implicitWidth: label.implicitWidth + 20
-            radius: height / 2
             color: isMuted ? ThemeManager.audio : ThemeManager.background
-            opacity: opacity.value
-            OpacityHover { id: opacity }
 
             readonly property string icon: {
                 if (isMuted) return "";
@@ -50,14 +46,8 @@ Item {
                 color: audio.isMuted ? ThemeManager.background : ThemeManager.audio
             }
 
-            TapHandler {
-                onTapped: AudioService.toggle()
-            }
-
-            TapHandler {
-                acceptedButtons: Qt.RightButton
-                onTapped: blueberryProc.running = true
-            }
+            onTapped: AudioService.toggle()
+            onRightTapped: blueberryProc.running = true
 
             MouseArea {
                 anchors.fill: parent
@@ -70,24 +60,17 @@ Item {
     Component {
         id: fallbackWidget
 
-        Rectangle {
+        BarWidget {
             implicitWidth: label.implicitWidth + 20
-            implicitHeight: ThemeManager.barHeight
-            radius: height / 2
             color: ThemeManager.backgroundStress
             opacity: 0.5
+            clickable: false
 
             ShellText {
                 id: label
                 anchors.centerIn: parent
                 text: "   --%"
                 color: ThemeManager.textlight
-            }
-
-            TapHandler {
-                acceptedButtons: Qt.RightButton
-                onTapped: blueberryProc.running = !blueberryProc.running 
-                // console.log(JSON.stringify(Pipewire.defaultAudioSink, null, 2))
             }
         }
     }

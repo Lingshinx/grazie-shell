@@ -2,18 +2,14 @@ import QtQuick
 import Quickshell.Io
 import qs.Common
 
-Rectangle {
+BarWidget {
     id: root
     property string updateText: ""
     property string updateClass: "hidden"
     property int updateCount: 0
+    implicitWidth: label.implicitWidth + 20
 
     // visible: updateClass !== "hidden" && updateCount > 0
-
-    implicitWidth: label.implicitWidth + 20
-    implicitHeight: ThemeManager.barHeight
-    radius: height / 2
-    opacity: hoverHandler.hovered ? 1.0 : ThemeManager.opacity
 
     color: updateClass === "red"    ? ThemeManager.error
          : updateClass === "yellow" ? ThemeManager.warning
@@ -28,18 +24,8 @@ Rectangle {
              ? ThemeManager.textlight : ThemeManager.text
     }
 
-    HoverHandler {
-        id: hoverHandler
-        cursorShape: Qt.PointingHandCursor
-    }
-
-    TapHandler {
-        onTapped: installUpdatesProc.running = true
-    }
-
-    Behavior on opacity {
-        NumberAnimation { duration: 200 }
-    }
+    onTapped: installUpdatesProc.running = true
+    rightClickable: false
 
     Process {
         id: checkUpdatesProc
