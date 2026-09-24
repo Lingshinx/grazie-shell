@@ -10,12 +10,12 @@ Singleton {
     id: root
 
     property var allWorkspaces: []
-    property var workspaces: Utils.groupBy(allWorkspaces.sort((a, b) => a.idx - b.idx), it => it.output)
-    property var workspacesById: Utils.indexBy(allWorkspaces, it => it.id)
+    readonly property var workspaces: Utils.groupBy(allWorkspaces.sort((a, b) => a.idx - b.idx), it => it.output)
+    readonly property var workspacesById: Utils.indexBy(allWorkspaces, it => it.id)
     property var windows: []
     property var outputs: []
     property bool inOverview: false
-    property var focusedWindow: windows.find(w => w.is_focused) || null
+    readonly property var focusedWindow: windows.find(w => w.is_focused) || null
 
     readonly property string socketPath: Quickshell.env("NIRI_SOCKET")
 
@@ -57,7 +57,7 @@ Singleton {
         }
     }
 
-    property var eventHandlers: ({
+    readonly property var eventHandlers: ({
         WorkspacesChanged(data) { root.allWorkspaces = data.workspaces },
 
         WorkspaceActivated(data) {
