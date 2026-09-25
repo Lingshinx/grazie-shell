@@ -59,7 +59,7 @@ Variants {
             Audio {}
             Battery {}
             Network {}
-            Tray {}
+            Tray { screen: bar.screen}
             ExitButton {}
             Clock {}
         }

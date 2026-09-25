@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell
 import Quickshell.Services.SystemTray
@@ -5,56 +7,65 @@ import Quickshell.Widgets
 import qs
 import qs.Common
 
-Item {
+Row {
     id: root
+    anchors.verticalCenter: parent.verticalCenter
+    spacing: 10
 
+    required property ShellScreen screen
     readonly property var items: SystemTray.items.values
+    property var currentTrayItem: null
     visible: items.length > 0
 
-    implicitWidth: visible ? trayRow.implicitWidth : 0
-    implicitHeight: ThemeManager.barHeight
+    Loader {
+        id: loader
+        readonly property TrayMenu menuItem: item as TrayMenu
+        active: root.currentTrayItem?.modelData?.hasMenu ?? false
+        sourceComponent: menu
+        asynchronous: true
+        visible: status == Loader.Ready
+    }
 
-    Row {
-        id: trayRow
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 10
+    Component {
+        id: menu
+        TrayMenu {
+            screen: root.screen
+            trayIcon: root.currentTrayItem
+            onMenuClosed: root.currentTrayItem = null
+        }
+    }
 
-        Repeater {
-            model: root.items
-            Item {
-                id: trayItemDelegate
-                required property var modelData
-                required property int index
+    Repeater {
+        model: ScriptModel {
+            values: root.items
+            objectProp: "key"
+        }
+        IconImage {
+            id: icon
+            required property SystemTrayItem modelData
+            required property int index
+            width: 21
+            height: 21
+            source: modelData.icon
+            asynchronous: true
 
-                width: 21
-                height: 21
-                anchors.verticalCenter: parent.verticalCenter
+            opacity: opacity.value
+            OpacityHover { id: opacity }
+            Behavior on opacity {
+                NumberAnimation { duration: Setting.animDuration }
+            }
 
-                IconImage {
-                    id: trayIcon
-                    anchors.fill: parent
-                    source: trayItemDelegate.modelData.icon
-                    asynchronous: true
-                    opacity: trayMouseArea.containsMouse ? 1.0 : ThemeManager.opacity
+            TapHandler {
+                onTapped: icon.modelData.activate()
+            }
 
-                    Behavior on opacity {
-                        NumberAnimation { duration: Setting.animDuration }
-                    }
-                }
-
-                MouseArea {
-                    id: trayMouseArea
-                    anchors.fill: parent
-                    acceptedButtons: Qt.LeftButton | Qt.RightButton
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-
-                    onClicked: mouse => {
-                        if (mouse.button === Qt.LeftButton) {
-                            trayItemDelegate.modelData.activate();
-                        } else if (mouse.button === Qt.RightButton) {
-                            trayItemDelegate.modelData.secondaryActivate();
-                        }
+            TapHandler {
+                acceptedButtons: Qt.RightButton
+                onTapped: if (icon.modelData.hasMenu) {
+                    if (root.currentTrayItem != icon) {
+                        root.currentTrayItem = icon;
+                    } else {
+                        loader.menuItem.showMenu = false
                     }
                 }
             }
