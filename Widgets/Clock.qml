@@ -1,63 +1,53 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import qs.Common
 
-Item {
+BarWidget {
     id: root
 
-    property string time: Qt.formatDateTime(new Date(), "HH:mm - ddd")
+    implicitWidth: metrics.width + 25
+    implicitHeight: ThemeManager.barHeight + 4
+    color: ThemeManager.backgroundStress
+    border.color: ThemeManager.border
+    border.width: ThemeManager.borderWidth
+    property string format: (detailed ? "HH:mm:ss" : "HH:mm") + (hovered ? " ddd dd" : "")
+    property int animDuration: 200
 
-    implicitWidth: clockBox.width
-    implicitHeight: ThemeManager.barHeight
+    ShellText {
+        id: label
+        anchors.centerIn: parent
+        property string format: root.format
+        text: Qt.formatDateTime(clock.date, format)
+        color: ThemeManager.textlight
+        font.features: {"tnum": 1}
 
-    Rectangle {
-        id: clockBox
-        width: clockText.implicitWidth + 20
-        height: parent.height
-        radius: height / 2
-        color: ThemeManager.backgroundStress
-        opacity: ThemeManager.opacity
-        border.color: ThemeManager.border
-        border.width: ThemeManager.borderWidth
-
-        Text {
-            id: clockText
-            anchors.centerIn: parent
-            text: root.time
-            font.family: ThemeManager.fontFamily
-            font.pixelSize: ThemeManager.fontSize
-            color: ThemeManager.textlight
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-
-            onClicked: swayncProc.running = true
-
-            onEntered: clockBox.opacity = 1.0
-            onExited: clockBox.opacity = ThemeManager.opacity
-        }
-
-        Behavior on opacity {
-            NumberAnimation { duration: 200 }
+        Behavior on format {
+            SequentialAnimation {
+                id: formatTransition
+                NumberAnimation { target: label; property: "opacity"; to: 0; duration: root.animDuration }
+                PropertyAction {}
+                NumberAnimation { target: label; property: "opacity"; to: 1; duration: root.animDuration }
+            }
         }
     }
 
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: root.time = Qt.formatDateTime(new Date(), "HH:mm - ddd")
+    SystemClock {
+        id: clock
+        precision: root.detailed ? SystemClock.Seconds : SystemClock.Seconds
     }
 
-    Process {
-        id: swayncProc
-        command: ["swaync-client", "-t"]
-        running: false
+    property bool detailed: false
+    onTapped: detailed = !detailed
+    rightClickable: false
+
+    Behavior on implicitWidth {
+        NumberAnimation { duration: root.animDuration }
     }
 
-    Component.onCompleted: root.time = Qt.formatDateTime(new Date(), "HH:mm - ddd")
+    TextMetrics {
+        id: metrics
+        font: label.font
+        text: Qt.formatDateTime(clock.date, root.format)
+    }
+
 }
