@@ -11,6 +11,8 @@ Rectangle {
     implicitHeight: ThemeManager.barHeight
     color: ThemeManager.background
     radius: height / 2
+
+    readonly property bool hovered: opacity.hovered
     opacity: opacity.value
     OpacityHover {
         id: opacity
