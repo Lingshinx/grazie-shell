@@ -1,46 +1,25 @@
 import QtQuick
-import Quickshell
 import Quickshell.Io
 import qs.Common
-import qs.Services
 
-Rectangle {
-    implicitHeight: exitText.implicitHeight
-    implicitWidth: exitText.implicitWidth + 6
+ShellIcon {
+    id: exitText
+    text: ""
+    anchors.verticalCenter: parent.verticalCenter
 
-    color: "transparent"
+    opacity: opacity.value
+    OpacityHover { id: opacity }
+    Behavior on opacity {
+        NumberAnimation { duration: 200 }
+    }
 
+    TapHandler {
+        onTapped: wlogoutProc.running = !wlogoutProc.running;
+    }
 
-    ShellIcon {
-        id: exitText
-        text: " "
-
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-
-            onClicked: mouse => {
-                if (mouse.button === Qt.LeftButton) {
-                    wlogoutProc.running = !wlogoutProc.running;
-                } else if (mouse.button === Qt.RightButton) {
-                    NiriService.action("closeOverview");
-                }
-            }
-
-            onEntered: exitText.opacity = 1.0
-            onExited: exitText.opacity = ThemeManager.opacity
-        }
-
-        Behavior on opacity {
-            NumberAnimation { duration: 200 }
-        }
-
-        Process {
-            id: wlogoutProc
-            command: ["wlogout"]
-            running: false
-        }
+    Process {
+        id: wlogoutProc
+        command: ["wlogout"]
+        running: false
     }
 }
