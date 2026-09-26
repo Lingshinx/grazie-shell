@@ -45,7 +45,7 @@ Rectangle {
                 objectProp: "id"
                 values: NiriService.workspaces[root.screenName] ?? []
             }
-            delegate: Rectangle {
+            Rectangle {
                 id: button
                 required property var modelData
                 required property int index

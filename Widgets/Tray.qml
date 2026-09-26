@@ -20,7 +20,7 @@ Item {
 
         Repeater {
             model: root.items
-            delegate: Item {
+            Item {
                 id: trayItemDelegate
                 required property var modelData
                 required property int index
