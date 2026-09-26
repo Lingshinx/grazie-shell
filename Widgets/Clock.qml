@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import qs.Common
+import qs
 
 BarWidget {
     id: root
@@ -11,7 +12,6 @@ BarWidget {
     border.color: ThemeManager.border
     border.width: ThemeManager.borderWidth
     property string format: (detailed ? "HH:mm:ss" : "HH:mm") + (hovered ? " ddd dd" : "")
-    property int animDuration: 200
 
     ShellText {
         id: label
@@ -24,9 +24,9 @@ BarWidget {
         Behavior on format {
             SequentialAnimation {
                 id: formatTransition
-                NumberAnimation { target: label; property: "opacity"; to: 0; duration: root.animDuration }
+                NumberAnimation { target: label; property: "opacity"; to: 0; duration: Setting.animDuration }
                 PropertyAction {}
-                NumberAnimation { target: label; property: "opacity"; to: 1; duration: root.animDuration }
+                NumberAnimation { target: label; property: "opacity"; to: 1; duration: Setting.animDuration }
             }
         }
     }
@@ -41,7 +41,7 @@ BarWidget {
     rightClickable: false
 
     Behavior on implicitWidth {
-        NumberAnimation { duration: root.animDuration }
+        NumberAnimation { duration: Setting.animDuration }
     }
 
     TextMetrics {

@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Io
 import qs.Common
+import qs
 
 ShellIcon {
     id: exitText
@@ -10,7 +11,7 @@ ShellIcon {
     opacity: opacity.value
     OpacityHover { id: opacity }
     Behavior on opacity {
-        NumberAnimation { duration: 200 }
+        NumberAnimation { duration: Setting.animDuration}
     }
 
     TapHandler {

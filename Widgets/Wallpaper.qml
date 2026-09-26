@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs
 import qs.Common
 
 
@@ -27,7 +28,7 @@ Image {
     }
 
     Behavior on opacity {
-        NumberAnimation { duration: 200 }
+        NumberAnimation { duration: Setting.animDuration}
     }
 
     Process {

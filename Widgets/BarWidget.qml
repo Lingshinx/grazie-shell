@@ -1,5 +1,6 @@
 import QtQuick
 import qs.Common
+import qs
 
 Rectangle {
     id: root
@@ -19,7 +20,7 @@ Rectangle {
     }
 
     Behavior on opacity {
-        NumberAnimation { duration: 200 }
+        NumberAnimation { duration: Setting.animDuration }
     }
 
     TapHandler {

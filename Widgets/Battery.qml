@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Services.UPower
 import qs.Common
+import qs
 
 Item {
     id: root
@@ -64,7 +65,7 @@ Item {
         }
 
         Behavior on opacity {
-            NumberAnimation { duration: 200 }
+            NumberAnimation { duration: Setting.animDuration }
         }
     }
 

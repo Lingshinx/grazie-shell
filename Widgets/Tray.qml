@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
+import qs
 import qs.Common
 
 Item {
@@ -37,7 +38,7 @@ Item {
                     opacity: trayMouseArea.containsMouse ? 1.0 : ThemeManager.opacity
 
                     Behavior on opacity {
-                        NumberAnimation { duration: 200 }
+                        NumberAnimation { duration: Setting.animDuration }
                     }
                 }
 

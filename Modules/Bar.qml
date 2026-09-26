@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import qs.Widgets
+import qs
 
 Variants {
     property var enabledMonitors: ["DP-2"]
@@ -18,9 +19,9 @@ Variants {
         }
 
         margins {
-            top: 10
-            left: 14
-            right: 14
+            top: Setting.bar.margins.top
+            left: Setting.bar.margins.left
+            right: Setting.bar.margins.right
         }
 
         implicitHeight: Math.max(
