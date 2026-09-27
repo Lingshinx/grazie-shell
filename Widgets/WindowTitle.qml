@@ -10,12 +10,16 @@ BarWidget {
     readonly property string displayTitle: rawTitle.replace(/— Mozilla FireFox$/i, "");
 
     visible: displayTitle.length > 0
-    implicitWidth: label.implicitWidth + 20
+    implicitWidth: Math.min(label.implicitWidth + 20, parent.parent.width / 3)
  
     ShellText {
         id: label
-        anchors.centerIn: parent
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 10
         text: root.displayTitle
+        width: parent.width - 20
+        elide: Qt.ElideRight
         color: ThemeManager.window
     }
 
