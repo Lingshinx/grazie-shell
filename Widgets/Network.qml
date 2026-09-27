@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell.Networking
 import qs.Common
 import qs.Utils
 import qs.Services

@@ -15,9 +15,7 @@ Rectangle {
 
     readonly property bool hovered: opacity.hovered
     opacity: opacity.value
-    OpacityHover {
-        id: opacity
-    }
+    OpacityHover { id: opacity }
 
     Behavior on opacity {
         NumberAnimation { duration: Setting.animDuration }
