@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.Utils
+import qs
 import qs.Common
 import qs.Services
 
@@ -10,17 +12,34 @@ BarWidget {
     readonly property string displayTitle: rawTitle.replace(/— Mozilla FireFox$/i, "");
 
     visible: displayTitle.length > 0
-    implicitWidth: Math.min(label.implicitWidth + 20, parent.parent.width / 3)
+    readonly property int maxWidth: parent.parent.width / 3
+    implicitWidth: label.unhoveredWidth + label.margin * 2
+    clip: true
  
     ShellText {
         id: label
         anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 10
         text: root.displayTitle
-        width: parent.width - 20
+        readonly property int margin: 10
+        readonly property real maxWidth: root.maxWidth - 2 * margin
+        readonly property real unhoveredWidth: Math.min(implicitWidth, maxWidth)
+        width: root.hovered ? undefined : unhoveredWidth
         elide: Qt.ElideRight
         color: ThemeManager.window
+        onWidthChanged: if (!root.hovered) label.x = margin
+        Marquee on x {
+            distance: label.implicitWidth - label.maxWidth
+            running: root.hovered && (label.implicitWidth > label.maxWidth)
+            from: label.margin
+        }
+
+        NumberAnimation on x {
+            id: returnAnim
+            running: !root.hovered
+            to: label.margin
+            duration: Setting.animDuration
+            easing.type: Easing.OutCubic
+        }
     }
 
     onTapped: rofiProc.running = !rofiProc.running
